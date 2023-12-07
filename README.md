@@ -9,3 +9,7 @@ my name is laetitia.
 Shell is native to linux and had better native advantage with better performance
 
 Ashumbay give me my money.
+
+echo welcome to shell scripting
+
+echo "welcome to shell scripting"
