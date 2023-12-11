@@ -20,3 +20,5 @@ echo printing the value of b ${b}
 echo ...
 
 echo "printing the value of c $c"
+
+# rm -rf /data/prod/${CUSTDATA} == rm -rf /data/prod/
