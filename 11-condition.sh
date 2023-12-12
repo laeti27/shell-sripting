@@ -23,7 +23,7 @@ case $ACTION in
          ;;
      retart)
          echo -e "\e[32m restarting shipping servive \e[0m"
-         exit 1
+         exit 3
          ;;
     *)
          echo -e "e[35m Valid Options are start or stop or restart only \e[0m"
