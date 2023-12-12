@@ -1,8 +1,9 @@
 #!/bin/bash
 
 USER_ID=$(id -u)
-COMPONENT=$1
+COMPONENT=mongo
 LOGFILE="/tmp/${COMPONENT}.log"
+MONGO_REPO="https://raw.githubusercontent.com/stans-robot-project/mongodb/main/mongo.repo"
 
 stat() {
    if [ $1 -eq 0 ] ; then 
@@ -18,4 +19,12 @@ if [ $USER_ID -ne 0 ] ; then
    exit 1
 fi
 
-echo -e "***** \e[31m configuring frontend \e[0m *****"
+echo -e "***** \e[35m configuring ${COMPONENT} \e[0m *****"
+
+echo -e "Configuring $COMPONENT repo :"
+curl -s -o /etc/yum.repos.d/mongodb.repo $MONGO_REPO
+stat $?
+
+echo -e"Installing $COMPONENT :"
+yum install -y mongodb-org &>> ${LOGFILE} 
+stat $?
