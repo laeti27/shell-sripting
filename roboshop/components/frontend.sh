@@ -18,7 +18,7 @@ if [ $USER_ID -ne 0 ] ; then
    exit 1
 fi
 
-echo -e"***** \e[35m configuring $COMPONENT \e[0m *****"
+echo -e "***** \e[35m configuring $COMPONENT \e[0m ******"
 
 echo -n "Install Nginx :"
 yum install nginx -y      &>> $LOGFILE
@@ -48,7 +48,7 @@ systemctl daemon-reload    &>> $LOGFILE
 systemctl restart nginx    &>> $LOGFILE
 stat $?
 
-echo -e"***** \e[35m configuring $COMPONENT \e[0m *****"
+echo -e "***** \e[35m configuring $COMPONENT \e[0m ******"
 
 
 
