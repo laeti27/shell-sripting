@@ -48,7 +48,9 @@ systemctl daemon-reload    &>> $LOGFILE
 systemctl restart nginx    &>> $LOGFILE
 stat $?
 
-echo -e "***** \e[35m configuring $COMPONENT \e[0m ******"
+echo -e "***** \e[35m $COMPONENT Configuration Is Completed \e[0m ******" 
+
+
 
 
 
