@@ -18,11 +18,11 @@ case $ACTION in
          exit 0
          ;;
      stop)
-         echo -e "\e[32m stopping shipping servive \e[0m"
+         echo -e "\e[31m stopping shipping servive \e[0m"
          exit 1
          ;;
      retart)
-         echo -e "\e[32m restarting shipping servive \e[0m"
+         echo -e "\e[33m restarting shipping servive \e[0m"
          exit 3
          ;;
     *)
