@@ -2,6 +2,7 @@
 
 USER_ID=$(id -u)
 COMPONENT=$1
+LOGFILE="/tmp/${COMPONENT}.log"
 
 stat() {
    if [ $1 -eq 0 ] ; then 
@@ -20,7 +21,7 @@ fi
 echo -e"***** \e[35m configuring $COMPONENT \e[0m *****"
 
 echo -n "Install Nginx :"
-yum install nginx -y      &>> /tmp/frontend.log
+yum install nginx -y      &>> $LOGFILE
 stat $?
 
 echo -n "Downloading component $COMPONENT :"
@@ -29,12 +30,10 @@ stat $?
 
 echo -n "Cleanup of $COMPONENT component : "
 cd /usr/share/nginx/html
-rm -rf *          &>> /tmp/frontend.log
-stat $?
+rm -rf *          &>> $LOGFILE
 
 echo -n "Extrating $COMPONENT: "
-unzip /tmp/frontend.zip     &>> /tmp/frontend.log
-stat $?
+unzip /tmp/frontend.zip     &>> $LOGFILE
 
 echo -n "Configuring $COMPONENT: "
 mv frontend-main/* .
@@ -44,9 +43,9 @@ mv localhost.conf /etc/nginx/default.d/roboshop.conf
 stat $?
 
 echo -n "Restarting $COMPONENT: "
-systemctl enable nginx     &>> /tmp/frontend.log
-systemctl daemon-reload    &>> /tmp/frontend.log
-systemctl restart nginx    &>> /tmp/frontend.log
+systemctl enable nginx     &>> $LOGFILE
+systemctl daemon-reload    &>> $LOGFILE
+systemctl restart nginx    &>> $LOGFILE
 stat $?
 
 echo -e"***** \e[35m configuring $COMPONENT \e[0m *****"
