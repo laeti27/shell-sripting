@@ -12,7 +12,7 @@ echo -e"***** \e[35m configuring frontend \e[0m *****"
 
 echo "Install Nginx :"
 yum install nginx -y      &>> /tmp/frontend.log
-if [ $? -eq 0] ; then
+if [ $? -eq 0 ] ; then
    echo -e "\e[31m success \e[0m"
 else 
    echo -e "\e[32m failure \e[0m"   
