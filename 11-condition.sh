@@ -14,15 +14,15 @@ ACTION=$1                      # $1 refers first command line argument
 
 case $ACTION in
      start)
-         echo -e "\32m starting shipping servive \e[0m"
+         echo -e "\e[32m starting shipping servive \e[0m"
          exit 0
          ;;
      stop)
-         echo -e "\32m stopping shipping servive \e[0m"
+         echo -e "\e[32m stopping shipping servive \e[0m"
          exit 1
          ;;
      retart)
-         echo -e "\32m restarting shipping servive \e[0m"
+         echo -e "\e[32m restarting shipping servive \e[0m"
          exit 1
          ;;
     *)
