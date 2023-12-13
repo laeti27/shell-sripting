@@ -22,11 +22,11 @@ echo -n "confuguring $COMPONENT repo :"
 curl -L https://raw.githubusercontent.com/stans-robot-project/${COMPONENT}/main/${COMPONENT}.repo -o /etc/yum.repos.d/${COMPONENT}.repo
 stat $?
 
-echo -n "installing $COMPONENT repo :"
+echo -n "installing $COMPONENT :"
 yum install redis-6.2.13 -y    &>> $LOGFILE
 stat $?
 
-echo -n "Starting $COMPONENT repo :"
+echo -n "Starting $COMPONENT :"
 systemctl daemon-reload &>> $LOGFILE 
 systemctl enable $COMPONENT &>> $LOGFILE 
 systemctl restart $COMPONENT &>> $LOGFILE 
