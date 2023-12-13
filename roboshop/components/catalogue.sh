@@ -2,6 +2,7 @@
 
 USER_ID=$(id -u)
 COMPONENT=catalogue
+COMPONENT_URL="https://github.com/stans-robot-project/$COMPONENT/archive/main.zip"
 LOGFILE="/tmp/${COMPONENT}.log"
 APPUSER="roboshop"
 
@@ -35,3 +36,7 @@ if [ $? -ne 0 ] ; then
 else 
    echo -e "\e[35m skipping \e[0m"
 fi 
+
+echo -n "Downloading $COMPONENT :"
+curl -s -L -o /tmp/$COMPONENT.zip $COMPONENT_URL 
+stat $? 
