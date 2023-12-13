@@ -23,14 +23,6 @@ curl -L https://raw.githubusercontent.com/stans-robot-project/${COMPONENT}/main/
 stat $?
 
 echo -n "installing $COMPONENT :"
-yum install redis-6.2.13 -y    &>> $LOGFILE
+yum install redis-6.2.13 -y &>> $LOGFILE
 stat $?
 
-echo -n "Starting $COMPONENT :"
-systemctl daemon-reload &>> $LOGFILE 
-systemctl enable $COMPONENT &>> $LOGFILE 
-systemctl restart $COMPONENT &>> $LOGFILE 
-stat $?
-
-
-echo -e "***** \e[35m configuring frontend \e[0m *****"
