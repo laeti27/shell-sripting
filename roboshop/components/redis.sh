@@ -26,3 +26,11 @@ echo -n "installing $COMPONENT :"
 yum install redis-6.2.13 -y &>> $LOGFILE
 stat $?
 
+echo -n "Starting $COMPONENT :"
+systemctl daemon-reload &>> $LOGFILE 
+systemctl enable $COMPONENT &>> $LOGFILE 
+systemctl restart $COMPONENT &>> $LOGFILE 
+stat $?
+
+
+
