@@ -44,3 +44,4 @@ stat $?
 echo -n "Extrating $COMPONENT :"
 cd /home/roboshop
 $ unzip -O /tmp/${COMPONENT}.zip     &>> $LOGFILE  
+stat $?
