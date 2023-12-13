@@ -57,3 +57,8 @@ echo -n "Generating Artifacts :"
 cd $APPUSER_HOME
 npm install    &>> $LOGFILE 
 stat $? 
+
+echo "configurating the $COMPONENT systemd file :"
+sed -i -e ' s/MONGO_DNSNAME/mongodb.roboshop.internal/' $APPUSER_HOME/systemd.service 
+mv ${APPUSER_HOME}/systemd.service /etc/systemd/systemd/${COMPONENT}.service
+stat $?
