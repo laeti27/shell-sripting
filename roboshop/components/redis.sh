@@ -26,4 +26,11 @@ echo -n "installing $COMPONENT repo :"
 yum install redis-6.2.13 -y    &>> $LOGFILE
 stat $?
 
+echo -n "Starting $COMPONENT repo :"
+systemctl daemon-reload &>> $LOGFILE 
+systemctl enable $COMPONENT &>> $LOGFILE 
+systemctl restart $COMPONENT &>> $LOGFILE 
+stat $?
+
+
 echo -e "***** \e[35m configuring frontend \e[0m *****"
