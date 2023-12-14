@@ -1,7 +1,7 @@
 #!/bin/bash
 
 USER_ID=$(id -u)
-COMPONENT=redis.sh
+COMPONENT=redis
 LOGFILE="/tmp/${COMPONENT}.log"
 
 stat() {
