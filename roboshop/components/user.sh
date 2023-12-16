@@ -1,7 +1,7 @@
 #!/bin/bash
 
 USER_ID=$(id -u)
-COMPONENT=USER
+COMPONENT=User
 COMPONENT_URL="https://github.com/stans-robot-project/$COMPONENT/archive/main.zip"
 LOGFILE="/tmp/${COMPONENT}.log"
 APPUSER="roboshop"
@@ -22,7 +22,7 @@ if [ $USER_ID -ne 0 ] ; then
 fi
 
 echo -n "configuring Nodejs Repo :"
-curl --silent --location curl -s -L -o /tmp/user.zip "https://github.com/stans-robot-project/user/archive/main.zip"
+curl --silent --location https://rpm.nodesource.com/setup_16.x | sudo bash - 
 stat $? 
 
 echo -n "Installing Nodejs :"
@@ -30,7 +30,7 @@ yum install nodejs -y    &>>$LOGFILE
 stat $?
 
 echo -e "Creating $APPUSER:"
-id $APPUSER    &>> $LOGFILE 
+id $APPUSER       &>> $LOGFILE 
 if [ $? -ne 0 ] ; then
    useradd $APPUSER
    stat $?
@@ -57,14 +57,14 @@ chown -R $APPUSER:$APPUSER $APPUSER_HOME
 chmod -R 770 $APPUSER_HOME
 stat $?
 
-echo -n "Generating Artifacts : "
+echo -n "Generating Artifacts :"
 cd $APPUSER_HOME
-npm install &>> $LOGFILE 
+npm install    &>> $LOGFILE 
 stat $? 
 
 echo "configurating the $COMPONENT systemd file :"
-sed -i -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' ${APPUSER_HOME}/systemd.service
-sed -i -e 's/REDIS_ENDPOINT/redis.mongodb.roboshop.internal/' ${APPUSER_HOME}/systemd.service 
+sed -i -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' ${APPUSER_HOME}/systemd.service 
+sed -i -e 's/REDIS_ENDPOINT/redis.mongodb.roboshop.internal/' ${APPUSER_HOME}/systemd.service
 mv ${APPUSER_HOME}/systemd.service /etc/systemd/system/${COMPONENT}.service
 stat $?
 
