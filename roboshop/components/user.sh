@@ -22,7 +22,7 @@ if [ $USER_ID -ne 0 ] ; then
 fi
 
 echo -n "configuring Nodejs Repo :"
-curl --silent --location https://rpm.nodesource.com/setup_16.x | sudo bash - 
+curl --silent --location curl -s -L -o /tmp/user.zip "https://github.com/stans-robot-project/user/archive/main.zip"
 stat $? 
 
 echo -n "Installing Nodejs :"
@@ -30,7 +30,7 @@ yum install nodejs -y    &>>$LOGFILE
 stat $?
 
 echo -e "Creating $APPUSER:"
-id $APPUSER       &>> $LOGFILE 
+id $APPUSER    &>> $LOGFILE 
 if [ $? -ne 0 ] ; then
    useradd $APPUSER
    stat $?
