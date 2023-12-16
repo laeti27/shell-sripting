@@ -68,11 +68,7 @@ sed -i -e 's/REDIS_ENDPOINT/redis.mongodb.roboshop.internal/' ${APPUSER_HOME}/sy
 mv ${APPUSER_HOME}/systemd.service /etc/systemd/system/${COMPONENT}.service
 stat $?
 
-echo -n "Starting $COMPONENT service :"
-systemctl daemon-reload &>> $LOGFILE 
-systemctl enable $COMPONENT &>> $LOGFILE 
-systemctl restart $COMPONENT &>> $LOGFILE 
-stat $?
+
 
 echo -e "***** \e[31m configuring frontend \e[0m *****"
 
