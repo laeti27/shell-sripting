@@ -59,10 +59,10 @@ stat $?
 
 echo -n "Generating Artifacts :"
 cd $APPUSER_HOME
-npm install    &>> $LOGFILE 
+npm install &>> $LOGFILE 
 stat $? 
 
-echo "configurating the $COMPONENT systemd file :"
+echo "Configurating the $COMPONENT systemd file :"
 sed -i -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' ${APPUSER_HOME}/systemd.service 
 sed -i -e 's/REDIS_ENDPOINT/redis.mongodb.roboshop.internal/' ${APPUSER_HOME}/systemd.service
 mv ${APPUSER_HOME}/systemd.service /etc/systemd/system/${COMPONENT}.service
