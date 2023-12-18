@@ -52,20 +52,20 @@ unzip -o /tmp/${COMPONENT}.zip     &>> $LOGFILE
 stat $?
 
 echo -n "Configuring $COMPONENT permissions :"
-mv ${APPUSER_HOME}-main $APPUSER_HOME
-chown -R $APPUSER:$APPUSER $APPUSER_HOME
-chmod -R 770 $APPUSER_HOME
+mv ${APPUSER_HOME}-main $APPuser_HOME
+chown -R $APPUSER:$APPUSER $APPuser_HOME
+chmod -R 770 $APPuser_HOME
 stat $?
 
 echo -n "Generating Artifacts :"
-cd $APPUSER_HOME
+cd $APPuser_HOME
 npm install &>> $LOGFILE 
 stat $? 
 
 echo "Configurating the $COMPONENT systemd file :"
-sed -i -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' ${APPUSER_HOME}/systemd.service 
-sed -i -e 's/REDIS_ENDPOINT/redis.mongodb.roboshop.internal/' ${APPUSER_HOME}/systemd.service
-mv ${APPUSER_HOME}/systemd.service /etc/systemd/system/${COMPONENT}.service
+sed -i -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' ${APPuser_HOME}/systemd.service 
+sed -i -e 's/REDIS_ENDPOINT/redis.mongodb.roboshop.internal/' ${APPuser_HOME}/systemd.service
+mv ${APPuser_HOME}/systemd.service /etc/systemd/system/${COMPONENT}.service
 stat $?
 
 echo -n "Starting $COMPONENT service :"
