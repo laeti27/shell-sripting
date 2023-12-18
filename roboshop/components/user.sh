@@ -1,7 +1,7 @@
 #!/bin/bash
 
 USER_ID=$(id -u)
-COMPONENT=User
+COMPONENT=user
 COMPONENT_URL="https://github.com/stans-robot-project/$COMPONENT/archive/main.zip"
 LOGFILE="/tmp/${COMPONENT}.log"
 APPUSER="roboshop"
@@ -52,20 +52,20 @@ unzip -o /tmp/${COMPONENT}.zip     &>> $LOGFILE
 stat $?
 
 echo -n "Configuring $COMPONENT permissions :"
-mv ${APPUSER_HOME}-main $APPuser_HOME
-chown -R $APPUSER:$APPUSER $APPuser_HOME
-chmod -R 770 $APPuser_HOME
+mv ${APPUSER_HOME}-main $APPUSER_HOME
+chown -R $APPUSER:$APPUSER $APPUSER_HOME
+chmod -R 770 $APPUSER_HOME
 stat $?
 
 echo -n "Generating Artifacts :"
-cd $APPuser_HOME
+cd $APPUSER_HOME
 npm install &>> $LOGFILE 
 stat $? 
 
 echo "Configurating the $COMPONENT systemd file :"
-sed -i -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' ${APPuser_HOME}/systemd.service 
-sed -i -e 's/REDIS_ENDPOINT/redis.mongodb.roboshop.internal/' ${APPuser_HOME}/systemd.service
-mv ${APPuser_HOME}/systemd.service /etc/systemd/system/${COMPONENT}.service
+sed -i -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' ${APPUSER_HOME}/systemd.service 
+sed -i -e 's/REDIS_ENDPOINT/redis.mongodb.roboshop.internal/' ${APPUSER_HOME}/systemd.service
+mv ${APPUSER_HOME}/systemd.service /etc/systemd/system/${COMPONENT}.service
 stat $?
 
 echo -n "Starting $COMPONENT service :"
