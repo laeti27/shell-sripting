@@ -32,3 +32,53 @@ The core Terraform workflow consists of three stages:
 HashiCorp co-founder and CTO Armon Dadgar explains how Terraform solves infrastructure challenges.
 
 
+
+# To get an Image ID:  centos@ws ~ ]$ aws ec2 describe-images --filters "Name=name,Values=DevOps-LabImage-CentOS7" | jq .
+
+# [ centos@ws ~ ]$ aws ec2 describe-images --filters "Name=name,Values=DevOps-LabImage-CentOS7" | jq " .Images[].ImageId"
+# "ami-0f75a13ad2e340a58"
+
+# [ centos@ws ~ ]$ aws ec2 describe-images --filters "Name=name,Values=DevOps-LabImage-CentOS7" | jq " .Images[].ImageId" | sed -e 's/"//g'
+ami-0f75a13ad2e340a58
+
+# 52.91.241.51 | 172.31.37.102 | t3.micro | null
+# [ centos@ws ~ ]$ AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=DevOps-LabImage-CentOS7" | jq " .Images[].ImageId" | sed -e 's/"//g')
+
+# [ centos@ws ~ ]$ echo $AMI_ID
+ami-0f75a13ad2e340a58
+
+# how to get a security group
+get the name of security group
+
+# [ centos@ws ~ ]$ aws ec2 describe-security-groups --filters "Name=group-name,Values=b56_allow_tls" | jq .
+# 52.91.241.51 | 172.31.37.102 | t3.micro | null
+# [ centos@ws ~ ]$ aws ec2 describe-security-groups --filters "Name=group-name,Values=b56_allow_tls" | jq ".SecurityGroups[].GroupId"  | sed -e 's/"//g'
+sg-085c32f91ae1c3c1a
+
+# [ centos@ws ~ ]$ SGID=$(aws ec2 describe-security-groups --filters "Name=group-name,Values=b56_allow_tls" | jq ".SecurityGroups[].GroupId"  | sed -e 's/"//g')
+
+# [ centos@ws ~ ]$ echo $SGID
+sg-085c32f91ae1c3c1a
+
+# to create a server to AWS
+export AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=DevOps-LabImage-CentOS7" | jq " .Images[].ImageId" | sed -e 's/"//g')
+export SGID=$(aws ec2 describe-security-groups --filters "Name=group-name,Values=b56_allow_tls" | jq ".SecurityGroups[].GroupId"  | sed -e 's/"//g')
+export COMPONENTS=(servername)
+then run this
+# aws ec2 run-instances --image-id ${AMI_ID} --istance-type ${INSTANCE_TYPE} --security-group-ids ${SGID} --tag-specifications "RessourceType=instance, Tags=[{key=Name,Value=${COMPONENTS}}]" | jq .
+
+# [ centos@ws ~ ]$ RATING_IP=$(aws ec2 run-instances --image-id ${AMI_ID} --instance-type ${INSTANCE_TYPE} --security-group-ids ${SGID} --tag-specifications "ResourceType=instance, Tags=[{Key=Name,Value=${COMPONENTS}}]" | jq ".Instances[].PrivateIpAddress")
+# echo $RATING_IP
+"172.31.32.31"
+# ]$ RATING_IP=$(aws ec2 run-instances --image-id ${AMI_ID} --instance-type ${INSTANCE_TYPE} --security-group-ids ${SGID} --tag-specifications "ResourceType=instance, Tags=[{Key=Name,Value=${COMPONENTS}}]" | jq ".Instances[].PrivateIpAddress" | sed -e 's/"//g')
+
+#  echo $RATING_IP
+172.31.35.113
+
+
+
+
+
+
+
+
