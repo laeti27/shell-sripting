@@ -6,7 +6,7 @@
 
 
 COMPONENTS=$1
-HOSTEDZONEID="Z05014054AQKS3H9I2B2"
+HOSTEDZONEID="Z08751963MBUTMW6KV5BY"
 AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=DevOps-LabImage-CentOS7" | jq " .Images[].ImageId" | sed -e 's/"//g')
 SGID=$(aws ec2 describe-security-groups --filters "Name=group-name,Values=b56_allow_tls" | jq ".SecurityGroups[].GroupId"  | sed -e 's/"//g')
 INSTANT_TYPE="t3.micro"
