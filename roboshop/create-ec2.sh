@@ -17,14 +17,16 @@ SGID=$(aws ec2 describe-security-groups --filters "Name=group-name,Values=b56_al
 INSTANT_TYPE="t3.micro"
 
 create_server() {
-    echo -e "******* \e[32m $COMPONENTS- \e[0m Server Creation In Progress *******!!!!!!"
-    PRIVATE_ID=$(aws ec2 run-instances --image-id ${AMI_ID} --instance-type ${INSTANCE_TYPE} --security-group-ids ${SGID} --tag-specifications "ResourceType=instance, Tags=[{Key=Name,Value=${COMPONENTS}}]" | jq ".Instances[].PrivateIpAddress")
+    echo -e "******* \e[32m $COMPONENTS-$ENV \e[0m Server Creation In Progress *******!!!!!!"
 
+    PRIVATE_ID=$(aws ec2 run-instances --image-id ${AMI_ID} --instance-type ${INSTANCE_TYPE} --security-group-ids ${SGID} --tag-specifications "ResourceType=instance, Tags=[{Key=Name,Value=${COMPONENTS}}]" | jq ".Instances[].PrivateIpAddress")
+    echo -e "****** \e[32m $COMPONENTS-$ENV \e[0m DNS Record Creation Is Completed ****** !!!!!! \n\n"
+ 
     echo -e "******* \e[32m $COMPONENTS-$ENV \e[0m DNS Record Creation In Progress ******* !!!!!!"
-    sed -e "s/COMPONENTS/${COMPONENTS}-${ENVY}/" -e "s/IPADDRESS/${PRIVATE_IP}/" route53.json > /tmp/dns.json
+    sed -e "s/COMPONENTS/${COMPONENTS}-${ENV}/" -e "s/IPADDRESS/${PRIVATE_IP}/" route53.json > /tmp/dns.json
 
     aws route53 change-resource-record-sets --hosted-zone-id $HOSTEDZONEID --change-batch file:///tmp/dns.json\
-    echo -e "****** \e[32m $COMPONENTS \e[0m DNS Record Creation Is Completed ****** !!!!!! \n\n"
+    echo -e "****** \e[32m $COMPONENTS-$ENV \e[0m DNS Record Creation Is Completed ****** !!!!!! \n\n"
 }
 
 # if the user supplies all as the first argument, the all these servers will be created.
