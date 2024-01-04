@@ -16,4 +16,5 @@ PRIVATE_ID=$(aws ec2 run-instances --image-id ${AMI_ID} --instance-type ${INSTAN
 
 echo -e "******* \[32m $COMPONENT \e[0m DNS Record Creation In Progress ******* !!!!!!"
 sed -e "s/COMPONENTS/${COMPONENTS}/" -e "s/IPADDRESS/${PRIVATE_IP}/" route53.json > /tmp/dns.json
-aws route53 change-resource-record-sets --hosted-zone-id $HOSTEDZONEID --change-batch file://tmp/dns.json
+
+aws route53 change-resource-record-sets --hosted-zone-id $HOSTEDZONEID --change-batch file:///tmp/dns.json
