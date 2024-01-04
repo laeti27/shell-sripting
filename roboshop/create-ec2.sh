@@ -4,7 +4,7 @@
 #SGID="sg-085c32f91ae1c3c1a"
 # AMI_ID="ami-0f75a13ad2e340a58" # Hardcoding is a bas-choice particulary with AMI-ID as it's going to be chnged when you register a new AMI.
  if [ -z $1 ] || [ -z $2 ] ; then
-    echo -e "\e[31m ****** COMPONENTS NAME IS NEEDED ****** \e[0m \n\t\t"
+    echo -e "\e[31m ****** COMPONENTS NAME & ENV ARE NEEDED ****** \e[0m \n\t\t"
     echo -e "\e[36m \t\t Example usage : \e[0m bash create-ec2 ratings dev"
     exit 1
 fi
