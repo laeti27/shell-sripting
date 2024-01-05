@@ -26,7 +26,8 @@ create_server() {
     sed -e "s/COMPONENTS/${COMPONENTS}-${ENV}/" -e "s/IPADDRESS/${PRIVATE_IP}/" route53.json > /tmp/dns.json
 
     aws route53 change-resource-record-sets --hosted-zone-id $HOSTEDZONEID --change-batch file:///tmp/dns.json\
-    echo -e "****** \e[32m $COMPONENTS-${ENV} \e[0m DNS Record Creation Is Completed ****** !!!!!! \n\n"
+
+    echo -e "****** \e[32m $COMPONENTS-$ENV \e[0m DNS Record Creation Is Completed ****** !!!!!! \n\n"
 }
 
 # if the user supplies all as the first argument, the all these servers will be created.
